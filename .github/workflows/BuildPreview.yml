@@ -13,7 +13,8 @@ jobs:
       - name: Clone Repository
         uses: actions/checkout@v4
         with:
-          repository: "jobobby04/TachiyomiSY"
+          repository: "rianza/TachiyomiSY"
+          ref: preview-2
           fetch-depth: 0
 
       - name: Set up gradle
@@ -43,7 +44,7 @@ jobs:
           
           echo "COMMIT_LOGS<<{delimiter}
           $(curl -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/jobobby04/TachiyomiSY/compare/$prev_release_sha...$current_sha" \
+            "https://api.github.com/repos/rianza/TachiyomiSY/compare/$prev_release_sha...$current_sha" \
             | jq '[.commits[]|{message:(.commit.message | split("\n")), username:.author.login}]' \
             | jq -r '.[]|"- \(.message | first) (@\(.username))"')
           {delimiter}" >> $GITHUB_ENV
@@ -134,7 +135,7 @@ jobs:
           body: |
             ### Commits
 
-            https://github.com/jobobby04/TachiyomiSY/compare/${{ env.PREV_RELEASE_SHA }}...${{ env.CURRENT_SHA }}
+            https://github.com/rianza/TachiyomiSY/compare/${{ env.PREV_RELEASE_SHA }}...${{ env.CURRENT_SHA }}
 
             ${{ env.COMMIT_LOGS }}
 
